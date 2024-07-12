@@ -1,12 +1,11 @@
 # Master thesis - Feasibility of deep learning-based methods for the detection of simulated ECGs
 
-Code repository. The report can be accessed via this [repository]()
+Repository contains the code to train and test the models developed during the master thesis.  The thesis report can be accessed via the xAI chairs [webpage](https://www.uni-bamberg.de/xai/studium/abschlussarbeiten/).
 
 ## Structure:
 
 * classification -> CNN-Transformer and CNN-LSTM files describing the models. Also contains training and testing scripts
 * generative_approach -> Contains all models, loss functions, training and demo scripts regarding the generative approach
-* preparations -> setup local database and downloading missions
 
 
 ## Reqired Packages:
@@ -23,18 +22,6 @@ Code repository. The report can be accessed via this [repository]()
 
 
 ## Important scripts
-
-### Setup database
-
-Have a look into preparations. 
-* Get data with: `00_get_dataset.ipynb`,
-* correct data labels: `01_correct_data_labels.ipynb`, 
-* select relevant missions: `04_select_ecg_missions_for_dataset_V3.ipynb`
-* generate windows from mission: `preprocess_data_into_windows.ipynb` or `preprocess_all_windows.py`
-* have a look at the database length distribution: `09_database_statistic.ipynb`
-* the relevance determination approach was created using insights generated in `select_relevant_windows.ipynb`
-* setup of c3 mission with `preparations/c3_missions/annotators_info.py`
-
 
 ### CNN-Transformer
 
@@ -65,11 +52,11 @@ python classification/CNN-Transformer/train_CNNTransformer.py
 **Testing**
 ```console
 python classification/CNN-Transformer/test_CNNTransformer.py
-  -r <run-id:str>                                            -> mlflow run id
-  -d <database-if-not-default:str>                           -> path of database from the bib localdataset  
-  -p <data-preprocessing-like-windows:str>                   -> data preprocessing available in the selected database
-  -b <batch-size:int>                                        -> batch size
-  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>            -> mlflow tracking uri
+  -r <run-id:str>                                             -> mlflow run id
+  -d <database-if-not-default:str>                            -> path of database from the bib localdataset  
+  -p <data-preprocessing-like-windows:str>                    -> data preprocessing available in the selected database
+  -b <batch-size:int>                                         -> batch size
+  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>             -> mlflow tracking uri
   -o <output-folder:str>      
 ```
 you can state multiple preprocessings at one, this will return the classification results for each preprocessing. The output folder should be set, because if the path already exists, a error will occur.
@@ -95,11 +82,11 @@ python classification/CNN-LSTM/train_CNNLSTM.py
 **Testing**
 ```console
 python classification/CNN-Transformer/test_CNNTransformer.py
-  -r <run-id:str>                                            -> mlflow run id
-  -d <database-if-not-default:str>                           -> path of database from the bib localdataset  
-  -p <data-preprocessing-like-windows:str>                   -> data preprocessing available in the selected database
-  -b <batch-size:int>                                        -> batch size
-  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>            -> mlflow tracking uri
-  -o <output-folder:str>                                     -> output folder of the classification results
+  -r <run-id:str>                                             -> mlflow run id
+  -d <database-if-not-default:str>                            -> path of database from the bib localdataset  
+  -p <data-preprocessing-like-windows:str>                    -> data preprocessing available in the selected database
+  -b <batch-size:int>                                         -> batch size
+  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>             -> mlflow tracking uri
+  -o <output-folder:str>                                      -> output folder of the classification results
 ```
 you can state multiple preprocessings at one, this will return the classification results for each preprocessing. The output folder should be set, because if the path already exists, a error will occur.
