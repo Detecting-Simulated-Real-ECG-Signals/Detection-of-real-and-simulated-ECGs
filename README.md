@@ -64,7 +64,13 @@ python classification/CNN-Transformer/train_CNNTransformer.py
 
 **Testing**
 ```console
-python classification/CNN-Transformer/test_CNNTransformer.py -r <run-id:str> -d <database-if-not-default:str> -p <data-preprocessing-like-windows:str> -b <batch-size:int> --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str> -o <output-folder:str>
+python classification/CNN-Transformer/test_CNNTransformer.py
+  -r <run-id:str>                                            -> mlflow run id
+  -d <database-if-not-default:str>                           -> path of database from the bib localdataset  
+  -p <data-preprocessing-like-windows:str>                   -> data preprocessing available in the selected database
+  -b <batch-size:int>                                        -> batch size
+  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>            -> mlflow tracking uri
+  -o <output-folder:str>      
 ```
 you can state multiple preprocessings at one, this will return the classification results for each preprocessing. The output folder should be set, because if the path already exists, a error will occur.
 
@@ -88,6 +94,12 @@ python classification/CNN-LSTM/train_CNNLSTM.py
 
 **Testing**
 ```console
-python classification/CNN-Transformer/test_CNNTransformer.py -r <run-id:str> -d <database-if-not-default:str> -p <data-preprocessing-like-windows:str> -b <batch-size:int> --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str> -o <output-folder:str>
+python classification/CNN-Transformer/test_CNNTransformer.py
+  -r <run-id:str>                                            -> mlflow run id
+  -d <database-if-not-default:str>                           -> path of database from the bib localdataset  
+  -p <data-preprocessing-like-windows:str>                   -> data preprocessing available in the selected database
+  -b <batch-size:int>                                        -> batch size
+  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>            -> mlflow tracking uri
+  -o <output-folder:str>                                     -> output folder of the classification results
 ```
 you can state multiple preprocessings at one, this will return the classification results for each preprocessing. The output folder should be set, because if the path already exists, a error will occur.
