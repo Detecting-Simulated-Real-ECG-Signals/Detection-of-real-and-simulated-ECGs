@@ -11,8 +11,8 @@ Code repository. The report can be accessed via this [repository]()
 
 ## Reqired Packages:
 
-* Defibrillator-Preprocessing (https://gitlab.corpuls.com/markus.bruecklmayr/defibrillator-preprocessing)
-* LocalDataManagementTool (https://gitlab.corpuls.com/markus.bruecklmayr/localdatamanagementtool)
+* Defibrillator-Preprocessing ([https://github.com/Detecting-Simulated-Real-ECG-Signals/preprocessing](https://github.com/Detecting-Simulated-Real-ECG-Signals/preprocessing))
+* LocalDataManagementTool ([https://github.com/Detecting-Simulated-Real-ECG-Signals/localdatamanagementtool](https://github.com/Detecting-Simulated-Real-ECG-Signals/DataManagement))
 * jupyter
 * scikit
 * sklearn
