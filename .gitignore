@@ -1,0 +1,14 @@
+.vscode
+*/data/*
+!preparations/data/label_corrections
+venv
+mlruns
+
+correlation/alg_correlations
+
+*.pkl
+*.pt
+*.json
+*.Identifier
+*.pyc
+*/__pycache__

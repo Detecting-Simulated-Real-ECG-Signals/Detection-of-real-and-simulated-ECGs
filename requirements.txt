@@ -1,0 +1,13 @@
+defibrillator-preprocessing
+jupyterlab
+localdatasetmanagement
+matplotlib
+mlflow
+neurokit2
+numpy
+plotly
+scikit-learn
+scipy
+torch
+torchmetrics
+tqdm

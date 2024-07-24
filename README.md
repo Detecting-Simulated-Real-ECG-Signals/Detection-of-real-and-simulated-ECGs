@@ -4,15 +4,19 @@ Repository contains the code to train and test the models developed during the m
 
 ## Structure:
 
-* classification -> CNN-Transformer and CNN-LSTM files describing the models. Also contains training and testing scripts
-* generative_approach -> Contains all models, loss functions, training and demo scripts regarding the generative approach
+
+    .
+    ├── classification              # Files describing the models, how they where trained and tested
+    │   ├── CNN-LSTM                # All files regarding the CNN-LSTM model
+    │   └── CNN-Transformer         # All files regarding the CNN-Transformer model
+    ├── generative_approach         # Contains all models, loss functions, training and demo scripts regarding the generative approach
 
 
 ## Reqired Packages:
 
 * Defibrillator-Preprocessing ([https://github.com/Detecting-Simulated-Real-ECG-Signals/preprocessing](https://github.com/Detecting-Simulated-Real-ECG-Signals/preprocessing))
 * LocalDataManagementTool ([https://github.com/Detecting-Simulated-Real-ECG-Signals/localdatamanagementtool](https://github.com/Detecting-Simulated-Real-ECG-Signals/DataManagement))
-* jupyter
+* jupyterlab
 * scikit
 * sklearn
 * torch (https://pytorch.org/get-started/locally/)
@@ -29,35 +33,40 @@ Repository contains the code to train and test the models developed during the m
 
 ```console
 python classification/CNN-Transformer/train_CNNTransformer.py
-  -p <PREPROCESSING>, --preprocessing <PREPROCESSING>         -> set preprocessing                                
-  --device <DEVICE>                                           -> set device (Options: cuda, cpu)
-  -lr <LEARNING_RATE>, --learning-rate <LEARNING_RATE>        -> set lr (default: 10^-4)                                      
-  --d_model D_MODEL                                           -> channel into the transformer model (default: 64) 
-  --stride STRIDE                                             -> CNN stride  (default: 2)
-  --kernel_size <KERNEL_SIZE>                                 -> CNN kernal-size (default: 3)             
-  --nhead <NHEAD>                                             -> Multi-Headed Attention number of heads (default: 8)
-  --num_layers <NUM_LAYERS>                                   -> CNN-Layers (default: 6)         
-  --width_multiplier <WIDTH_MULTIPLIER>                       -> SE width multiplier (default: 6)                     
-  --dropout <DROPOUT>                                         -> Dropout percentage     
-  --FFN_dim_hidden_layers [<FFN_DIM_HIDDEN_LAYERS> ...]       -> Number of neurons used in the middle layer of the classifier                                      
-  --epochs <EPOCHS>                                           -> Training Mini-Epochs 
-  -b BATCH_SIZE, --batch-size <BATCH_SIZE>                    -> Batch-size                         
-  --validation-batches <VALIDATION_BATCHES>                   -> Number of batches used to validate trainings progress                         
-  --num-workers <NUM_WORKERS>                                   
-  --mlflow-tracking-uri <MLFLOW_TRACKING_URI>                                   
-  --mlflow-experiment <MLFLOW_EXPERIMENT>                                   
+  -h, --help                                                    show this help message and exit
+  -p PREPROCESSING, --preprocessing PREPROCESSING               If preprocessing is not defined, script uses default 'base' preprocessing.
+  --device DEVICE                                               Device to run the model on. Options: cuda, cpu
+  -lr LEARNING_RATE, --learning-rate LEARNING_RATE              Learning rate used to optimize the model.
+  --d_model D_MODEL                                             d_model size of the transformer model.
+  --stride STRIDE                                               Stride used by the CNN backbone.
+  --kernel_size KERNEL_SIZE                                     Kernal size of the CNN backbone.
+  --nhead NHEAD                                                 Number of multi headed attention used by the transformer.
+  --num_layers NUM_LAYERS                                       Number of Transformer layers.
+  --width_multiplier WIDTH_MULTIPLIER                           Channel multiplier used by the CNN backbone.
+  --dropout DROPOUT                                             Dropout percentage.
+  --FFN_dim_hidden_layers [FFN_DIM_HIDDEN_LAYERS ...]           Number of neurons used by the classification component used as hidden layer
+  --validation-batches VALIDATION_BATCHES                       Amount of validation batches used to validate the models performance.
+  --epochs EPOCHS                                               Number of training epochs.
+  --num-workers NUM_WORKERS                                     Number of workers used to preprocess data.
+  -b BATCH_SIZE, --batch-size BATCH_SIZE                        Batch size.
+  --mlflow-tracking-uri MLFLOW_TRACKING_URI                     MLflow tracking uri.
+  --mlflow-experiment MLFLOW_EXPERIMENT                         MLflow experiment name.                        
 ```
 
 
 **Testing**
 ```console
 python classification/CNN-Transformer/test_CNNTransformer.py
-  -r <run-id:str>                                             -> mlflow run id
-  -d <database-if-not-default:str>                            -> path of database from the bib localdataset  
-  -p <data-preprocessing-like-windows:str>                    -> data preprocessing available in the selected database
-  -b <batch-size:int>                                         -> batch size
-  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>             -> mlflow tracking uri
-  -o <output-folder:str>      
+-h, --help                                                      show this help message and exit
+  --device DEVICE                                               Device to run model on. Options: cuda, cpu
+  -p [PREPROCESSING ...], --preprocessing [PREPROCESSING ...]   If preprocessing is not defined, script uses default 'base' preprocessing.
+  -d DATABASE, --database DATABASE                              The used database must contain the preprocessing selected with '--preprocessing'. This argument requires a path to the preprocessing files.
+  -r RUN_ID, --run-id RUN_ID                                    MLflow run id
+  -o OUTPUT, --output OUTPUT                                    Output folder of the testing performance. Default: 'output/{run-id}'
+  --num-workers NUM_WORKERS                                     Number of workers used to preprocess data.
+  -b BATCH_SIZE, --batch-size BATCH_SIZE                        Batch size
+  --mlflow-tracking-uri MLFLOW_TRACKING_URI                     MLflow tracking uri
+  --mlflow-experiment MLFLOW_EXPERIMENT                         MLflow experiment name
 ```
 you can state multiple preprocessings at one, this will return the classification results for each preprocessing. The output folder should be set, because if the path already exists, a error will occur.
 
@@ -67,26 +76,31 @@ you can state multiple preprocessings at one, this will return the classificatio
 
 ```console
 python classification/CNN-LSTM/train_CNNLSTM.py
-  -p <PREPROCESSING>, --preprocessing <PREPROCESSING>         -> set preprocessing                                
-  --device <DEVICE>                                           -> set device (Options: cuda, cpu)
-  -lr <LEARNING_RATE>, --learning-rate <LEARNING_RATE>        -> set lr (default: 10^-4)
-  --bidirectional <BIDIRECTIONAL:bool>                        -> bidirectional LSTM (default: True)  
-  --epochs <EPOCHS>                                           -> Training Mini-Epochs 
-  -b BATCH_SIZE, --batch-size <BATCH_SIZE>                    -> Batch-size                         
-  --validation-batches <VALIDATION_BATCHES>                   -> Number of batches used to validate trainings progress                         
-  --num-workers <NUM_WORKERS>                                   
-  --mlflow-tracking-uri <MLFLOW_TRACKING_URI>                                   
-  --mlflow-experiment <MLFLOW_EXPERIMENT>                                   
+  -h, --help                                                    Show this help message and exit
+  -p PREPROCESSING, --preprocessing PREPROCESSING               If preprocessing is not defined, script uses default 'base' preprocessing.
+  --device DEVICE                                               Device to run the model on. Options: cuda, cpu
+  -lr LEARNING_RATE, --learning-rate LEARNING_RATE              Learning rate used to optimize the model.
+  --bidirectional BIDIRECTIONAL                                 Set the model to uni or bidirectional.
+  --validation-batches VALIDATION_BATCHES                       Amount of validation batches used to validate the models performance.
+  --epochs EPOCHS                                               Number of training epochs.
+  --num-workers NUM_WORKERS                                     Number of workers used to preprocess data.
+  -b BATCH_SIZE, --batch-size BATCH_SIZE                        Batch size.
+  --mlflow-tracking-uri MLFLOW_TRACKING_URI                     MLflow tracking uri.
+  --mlflow-experiment MLFLOW_EXPERIMENT                         MLflow experiment name.                              
 ```
 
 **Testing**
 ```console
 python classification/CNN-Transformer/test_CNNTransformer.py
-  -r <run-id:str>                                             -> mlflow run id
-  -d <database-if-not-default:str>                            -> path of database from the bib localdataset  
-  -p <data-preprocessing-like-windows:str>                    -> data preprocessing available in the selected database
-  -b <batch-size:int>                                         -> batch size
-  --mlflow-tracking-uri <MLFLOW_TRACKING_URI:str>             -> mlflow tracking uri
-  -o <output-folder:str>                                      -> output folder of the classification results
+  -h, --help                                                    Show this help message and exit
+  --device DEVICE                                               Device to run the model on. Options: cuda, cpu
+  -p [PREPROCESSING ...], --preprocessing [PREPROCESSING ...]   If preprocessing is not defined, script uses default 'base' preprocessing.
+  -d DATABASE, --database DATABASE                              The used database must contain the preprocessing selected with '--preprocessing'.This argument requires a path to the preprocessing files.
+  -r RUN_ID, --run-id RUN_ID                                    MLflow run id
+  -o OUTPUT, --output OUTPUT                                    Output folder of the testing performance. Default: 'output/{run-id}'
+  --num-workers NUM_WORKERS                                     Number of workers used to preprocess data.
+  -b BATCH_SIZE, --batch-size BATCH_SIZE                        Batch size
+  --mlflow-tracking-uri MLFLOW_TRACKING_URI                     MLflow tracking uri
+  --mlflow-experiment MLFLOW_EXPERIMENT                         MLflow experiment name
 ```
 you can state multiple preprocessings at one, this will return the classification results for each preprocessing. The output folder should be set, because if the path already exists, a error will occur.
